@@ -9,7 +9,7 @@ const Onboarding = ({ navigation }) => {
     return (
         <>
             <StatusBar backgroundColor={'#F5F5F5'} barStyle={"dark-content"} />
-            <SafeAreaView style={{ flex: 1, }}>
+            <SafeAreaView style={{ flex: 1,backgroundColor:'#F5F5F5' }}>
 
                 <View style={styles.top}>
                     <Image source={Images.web} style={{ height: 180, width: 180, tintColor: '#3CDA91' }} />

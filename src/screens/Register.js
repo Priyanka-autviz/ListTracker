@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, StyleSheet, Image, TouchableOpacity, StatusBar, KeyboardAvoidingView } from 'react-native';
+import {
+    Text, View, StyleSheet, Image,
+    TouchableOpacity, StatusBar, KeyboardAvoidingView
+} from 'react-native';
 import InputText from '../common/InputText';
 import { Button } from '../common/Button';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ScrollView } from 'react-native';
-
+import { Fonts } from '../components/Fonts';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { color } from '../components/color';
+import register from '../modules/register';
 
 const data = [
     { label: 'Male', value: '1' },
@@ -19,6 +26,69 @@ const Register = ({ navigation }) => {
     const [mydate, setDate] = useState(new Date());
     const [displaymode, setMode] = useState('date');
     const [isDisplayDate, setShowDate] = useState(false);
+    const [fetchedData, setFetchedData] = useState([]);
+    const [emailId, setEmailId] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [gender, setGender] = useState('');
+    const dispatch = useDispatch();
+
+    const fetchData = async () => {
+        const endpoint = 'http://192.168.18.236:8000/data/total-user-friends-already-registered/';
+        const phoneNumbers = [9786645456, 21323, 9781025001];
+
+        try {
+            const response = await axios.post(
+                endpoint,
+                { phone_numbers: phoneNumbers },
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log('Response:', response.data.data.total_friends);
+            setFetchedData(JSON.stringify(response.data.data.total_friends));
+        } catch (error) {
+            // Handle errors
+            console.error('Error:', error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    const userRegisterApiCall = () => {
+        let data = {
+            first_name: firstName,
+            last_name: lastName,
+            email: emailId,
+            phone_number: phone,
+            // date_of_birth: mydate,
+            password: password,
+            // gender: gender,
+        };
+        dispatch(register(data)).then(response => {
+            console.log('Response:', response);
+            if (response && response.payload && response.payload.success === true) {
+                Alert.alert(response.payload.message);
+                navigation.goBack();
+            } else if (response && response.payload && response.payload.data) {
+                Alert.alert(response.payload.data);
+            } else {
+                // Handle other cases or log the response for further investigation
+                console.log('Unexpected response:', response);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            // Handle the error appropriately
+        });
+    };
+
 
     const changeSelectedDate = (event, selectedDate) => {
         const currentDate = selectedDate || mydate;
@@ -58,11 +128,13 @@ const Register = ({ navigation }) => {
             <StatusBar backgroundColor={'#F5F5F5'} barStyle={"dark-content"} />
             <ScrollView style={{ flex: 1 }}>
                 <KeyboardAvoidingView style={{ backgroundColor: '#F5F5F5', flex: 1 }}>
+
                     <View style={{ marginTop: 20 }}>
-                        <TouchableOpacity onPress={()=>navigation.goBack()}>
-                            <Image source= {require('../assets/Images/back.png')}
-                            style={{ height: 28, width: 28, marginStart: 20, tintColor: '#3CDA91' }} />
-                               </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <Image source={require('../assets/Images/back.png')}
+                                style={{ height: 28, width: 28, marginStart: 20, tintColor: '#3CDA91' }} />
+                        </TouchableOpacity>
+                        <Text style={{ color: color.green, fontSize: 15 }}>               {fetchedData} of your friends are already using our app </Text>
                         <Image source=
                             {require('../assets/Images/web.png')}
                             style={styles.img} />
@@ -75,14 +147,16 @@ const Register = ({ navigation }) => {
                                 <InputText placeholder={"First Name"}
                                     placeholderTextColor={'gray'}
                                     inputstying={styles.inputEdit}
-                                // onChangeText={(t) => setuser({ ...user, name: t })} 
+                                    value={firstName}
+                                    onChangeText={firstName => setFirstName(firstName)}
 
                                 />
 
                                 <InputText placeholder={"Last Name"}
                                     placeholderTextColor={'gray'}
                                     inputstying={styles.inputEdit}
-                                // onChangeText={(t) => setuser({ ...user, name: t })}
+                                    value={lastName}
+                                    onChangeText={lastName => setLastName(lastName)}
                                 />
 
                             </View>
@@ -93,7 +167,7 @@ const Register = ({ navigation }) => {
                                     onPress={() => setShowPicker(!showPicker)}
                                 >
 
-                                    <Text style={{ color: 'gray', fontSize: 16 }}>{value ? data.find((item) => item.value === value)?.label : 'Gender'}
+                                    <Text style={{ color: 'gray', fontSize: 16, fontFamily: Fonts.DroidSans }}>{value ? data.find((item) => item.value === value)?.label : 'Gender'}
                                     </Text>
                                     <Image source=
                                         {require('../assets/Images/down.png')}
@@ -103,9 +177,7 @@ const Register = ({ navigation }) => {
                                 <InputText placeholder={"Zipcode"}
                                     placeholderTextColor={'gray'}
                                     keyboardType={'phone-pad'}
-                                    inputstying={styles.inputEdit}
-
-                                />
+                                    inputstying={styles.inputEdit} />
 
                             </View>
 
@@ -115,7 +187,7 @@ const Register = ({ navigation }) => {
                                 style={styles.dob}
                                 onPress={displayDatepicker}
                             >
-                                <Text style={{ color: 'gray' }}>{formattedDate || 'Select Date'}</Text>
+                                <Text style={{ color: 'gray', fontFamily: Fonts.DroidSans }}>{formattedDate || 'Select Date'}</Text>
                             </TouchableOpacity>
                             {isDisplayDate && (
                                 <DateTimePicker
@@ -131,20 +203,23 @@ const Register = ({ navigation }) => {
                                 placeholderTextColor={'gray'}
                                 keyboardType={'phone-pad'}
                                 inputstying={{ marginTop: 14 }}
-
+                                value={phone}
+                                onChangeText={phone => setPhone(phone)}
 
                             />
                             <InputText placeholder={"Email Address"}
                                 placeholderTextColor={'gray'}
                                 inputstying={{ marginTop: 14 }}
+                                value={emailId}
+                                onChangeText={emailId => setEmailId(emailId)}
                             />
 
                             <InputText placeholder={"Password"}
                                 placeholderTextColor={'gray'}
                                 inputstying={{ marginTop: 14 }}
                                 secureTextEntry
-                            // onChangeText={(t) => setuser({ ...user, confirmPassword: t })}
-                            />
+                                value={password}
+                                onChangeText={password => setPassword(password)} />
                         </View>
 
 
@@ -156,9 +231,10 @@ const Register = ({ navigation }) => {
                             </Text>
                         </View>
                         <View style={{ marginTop: 30 }}>
-                            <Button onPress={() => navigation.navigate('VerifyEmail')}
+                            <Button
+                                onPress={() => userRegisterApiCall()}
                                 styling={styles.logbtn}
-                                text={"Continue"}>
+                                text={"Next"}>
                             </Button>
                         </View>
                     </View>
@@ -227,7 +303,7 @@ const styles = StyleSheet.create({
     },
     img: {
         alignSelf: "center",
-        marginTop: 42,
+        marginTop: 34,
         height: 110, width: 110,
         tintColor: '#3CDA91'
     },
@@ -252,13 +328,14 @@ const styles = StyleSheet.create({
     title: {
         color: '#000',
         fontSize: 13,
+        fontFamily: Fonts.DroidSans
 
     },
     titletxt: {
         color: '#3CDA91',
         fontSize: 13,
         lineHeight: 18,
-
+        fontFamily: Fonts.DroidSans
     },
     last: {
         borderTopColor: 'gray',

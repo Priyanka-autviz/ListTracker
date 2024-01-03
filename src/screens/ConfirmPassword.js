@@ -3,27 +3,24 @@ import React from 'react'
 import InputText from '../common/InputText'
 import { Button } from '../common/Button'
 import Images from '../components/Images'
+import { Fonts } from '../components/Fonts'
+import AuthHeader from '../common/AuthHeader'
 
 const ConfirmPassword = ({ navigation }) => {
     return (
-        <View style={{ flex: 1, paddingHorizontal: 20 }}>
-               <TouchableOpacity onPress={()=>navigation.goBack()}>
-                            <Image source= {require('../assets/Images/back.png')}
-                            style={{ height: 28, width: 28,marginTop:20,  tintColor: '#3CDA91' }} />
-                               </TouchableOpacity>  
-              <View style={styles.imgview}>
+        <View style={{ flex: 1,backgroundColor:"#F5F5F5", paddingHorizontal: 20 }}>
+             
+              
            
-            <Image source={Images.web}
-              style={{ height: 140, width: 140, tintColor: '#3CDA91' }} />
-          </View>
+            <AuthHeader />
           <Text style={styles.text}>Set Your Password  </Text>
-            <Text style={{ fontSize: 16, color: 'black', marginTop: 25 }}>New Password</Text>
+            <Text style={{ fontSize: 16, color: 'black',  fontFamily:Fonts.DroidSans, marginTop: 25 }}>New Password</Text>
             <InputText placeholder={"New Password"}
                 placeholderTextColor={'gray'}
                 keyboardType={'phone-pad'}
                 inputstying={{ marginTop: 10 }}
             />
-            <Text style={{ fontSize: 16, color: 'black', marginTop: 25 }}>Confirm Password</Text>
+            <Text style={{ fontSize: 16, color: 'black', marginTop: 25,  fontFamily:Fonts.DroidSans }}>Confirm Password</Text>
             <InputText placeholder={"Confirm Password"}
                 placeholderTextColor={'gray'}
                 keyboardType={'phone-pad'}
@@ -49,5 +46,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         color: '#3CDA91',
         fontSize: 29,
+        fontFamily:Fonts.DroidSansBold
     },
 })

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react
 import React from 'react'
 import Header from '../common/Header'
 import Images from '../components/Images'
+import { Fonts } from '../components/Fonts';
 
 const Data = [
     {
@@ -14,7 +15,7 @@ const Data = [
         id: 2,
         Text: '2023 Best Picture Oscar Nominees',
         image: Images.res1,
-        frnds: '5 friends are participating in this mission',
+        frnds: '5 friends are participating in this missions',
         add: Images.plus
 
     },
@@ -28,7 +29,7 @@ const Data = [
     {
         id: 10,
         Text: '2023 New York Times 100 Best ',
-        frnds: '1 friends are participating in this mission',
+        frnds: '1 friends are participating in this missions',
         image: Images.res,
         add: Images.plus
     },
@@ -42,7 +43,7 @@ const Data = [
     {
         id: 30,
         Text: 'Travel the World',
-        frnds: '2 friends are participating in this mission',
+        frnds: '2 friends are participating in this missions',
         image: Images.res3,
         add: Images.plus
 
@@ -75,6 +76,7 @@ const Missions = () => {
                 back={Images.back}
                 Header={'Movie Missions'}
                 showTextInput
+                filter={Images.filter}
             />
             <View style={{ marginTop: 40, }}>
                 <FlatList
@@ -92,8 +94,8 @@ export default Missions
 
 const styles = StyleSheet.create({
     top: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, alignItems: 'center' },
-    text: { color: 'black', fontWeight: '600', paddingStart: 8, fontSize: 11, paddingVertical: 3 },
-    lowerText: { color: 'black', paddingStart: 8, fontSize: 9, },
+    text: { color: 'black', fontWeight: '600', fontFamily:Fonts.DroidSansBold, paddingStart: 8, fontSize: 11, paddingVertical: 3 },
+    lowerText: { color: 'black', fontFamily:Fonts.DroidSans, paddingStart: 8, fontSize: 9, },
 
     image: { height: 37, width: 38, borderRadius: 2 },
 

@@ -18,5 +18,17 @@ const Images = {
     web: require('../assets/Images/web.png'),
     profile: require('../assets/Images/profile.jpg'),
     man: require('../assets/Images/man.jpg'),
+    friends: require('../assets/Images/friends.png'),
+    close: require('../assets/Images/close.png'),
+
+    upload1: require('../assets/Images/upload1.png'),
+
+    users: require('../assets/Images/users.png'),
+    frnds: require('../assets/Images/frnds.png'),
+    logout: require('../assets/Images/logout.png'),
+    target: require('../assets/Images/target.png'),
+    upload: require('../assets/Images/upload.png'),
+    refresh: require('../assets/Images/refresh.png'),
+
 }
 export default Images;

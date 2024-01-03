@@ -1,8 +1,17 @@
 
 import React, { useState } from 'react';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+  View, FlatList,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Image
+} from 'react-native';
 import Header from '../common/Header';
 import Images from '../components/Images';
+import { Fonts } from '../components/Fonts';
 
 const countryData = [
   { id: '1', no: '1', name: "Afghanistan", isChecked: false },
@@ -37,16 +46,21 @@ const countryData = [
   { id: '30', no: '30', name: "Cambodia", isChecked: false },
 ];
 
+
+
+const CountryList = ({ navigation }) => {
+  const [modalVisible, setmodalVisible] = useState(false);
+  const [data, setData] = useState(countryData);
+
 const CustomCheckbox = ({ isChecked }) => (
-  <View style={styles.checkbox}>
+  <TouchableOpacity
+  onPress={()=>navigation.navigate('SelectImage')}
+  style={styles.checkbox}>
     {isChecked ? (
       <Image source={require('../assets/Images/tick.png')} style={styles.tickImage} />
     ) : null}
-  </View>
+  </TouchableOpacity>
 );
-
-const CountryList = ({ navigation }) => {
-  const [data, setData] = useState(countryData);
 
   const handleSelectItem = (id) => {
     const updatedData = data.map(item => {
@@ -57,7 +71,7 @@ const CountryList = ({ navigation }) => {
     });
     setData(updatedData);
   };
-  
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.checkboxContainer}
@@ -77,16 +91,18 @@ const CountryList = ({ navigation }) => {
           Header={'Travel the World'}
           back={Images.back}
           img={Images.info}
+          info
+          infoOnpress={()=>setmodalVisible(true)}
           showProgress
           isCenterShown
           onPress={() => navigation.navigate('Leaderboard')}
-          LowerText={'9 friends are participating in this mission'}
+          LowerText={'9 friends are participating in this missions'}
         />
 
         <View style={styles.container}>
           <View style={{ flexDirection: 'row', paddingBottom: 10, paddingHorizontal: 10, justifyContent: 'space-between' }}>
-            <Text style={{ color: '#000', fontWeight: 'bold' }}>#</Text>
-            <Text style={{ color: '#000', fontWeight: 'bold' }}> Task</Text>
+            <Text style={{ color: '#000', fontWeight: 'bold', fontFamily: Fonts.DroidSans }}>#</Text>
+            <Text style={{ color: '#000', fontWeight: 'bold', fontFamily: Fonts.DroidSans }}> Task</Text>
             <Text style={{ color: '#000', fontWeight: 'bold', marginRight: 11 }}> </Text>
           </View>
           <FlatList
@@ -97,6 +113,27 @@ const CountryList = ({ navigation }) => {
           />
         </View>
       </View>
+      <Modal animationType='slide'
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={()=>setmodalVisible(false)}
+       >
+       <View style={{ flex: 1, justifyContent: 'center',paddingHorizontal:30, alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <View style={{ backgroundColor: 'white', justifyContent:'center',alignItems:'center', padding: 20,paddingVertical:30, borderRadius: 10 }}>
+            <TouchableOpacity
+            onPress={()=>setmodalVisible(false)}
+            style={{alignSelf:'flex-end'}}>
+              <Image source={Images.close} style={{height:28,width:28,tintColor:'gray'}}/>
+            </TouchableOpacity>
+            <Text style={{color:'#3CDA91',fontFamily:Fonts.DroidSansBold,fontSize:18}}>Description</Text>
+            <Text style={{color:'gray',fontFamily:Fonts.DroidSans,paddingBottom:30,textAlign:'center',marginTop:15,lineHeight:17}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+               Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </Text>
+       
+          </View>
+        </View>
+
+
+      </Modal>
     </>
   );
 };
@@ -134,12 +171,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 8,
   },
-  // checkbox: {
-  //   marginRight: 10,
-  // },
   text: {
     fontSize: 16,
-    color: '#000'
+    color: '#000',
+    fontFamily: Fonts.DroidSans
   },
   checkboxUnchecked: {
     height: 24,

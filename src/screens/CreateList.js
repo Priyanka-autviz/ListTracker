@@ -6,12 +6,14 @@ import {
   View, StatusBar,
   FlatList,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 
 import React, { useState } from 'react';
 import Header from '../common/Header';
 import Images from '../components/Images';
+import { Fonts } from '../components/Fonts';
 
 const data = [
   { label: 'Movies', value: '1' },
@@ -20,7 +22,7 @@ const data = [
   { label: 'Cooking', value: '4' },
 ];
 
-const CreateList = () => {
+const CreateList = ({ navigation }) => {
 
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
@@ -58,7 +60,7 @@ const CreateList = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={'#19C375'} barStyle={"dark-content"} />
+      <StatusBar backgroundColor={'#3CDA91'} barStyle={"dark-content"} />
       <ScrollView>
         <KeyboardAvoidingView style={{ flex: 1 }}>
           <Header
@@ -66,23 +68,24 @@ const CreateList = () => {
             back={Images.back}
           />
           <View style={styles.container}>
-            <Text style={styles.name}>Mission</Text>
+            <Text style={styles.name}>Missions</Text>
             <TextInput
               placeholder='Name'
               placeholderTextColor={'#000'}
               style={styles.input}
             />
+            <Text style={styles.name}>Category</Text>
             <TouchableOpacity
               style={styles.input}
               onPress={() => setShowPicker(!showPicker)}
             >
 
-              <Text style={{ color: 'black', }}>{value ? data.find((item) => item.value === value)?.label : 'Category'}</Text>
+              <Text style={{ color: 'black', fontFamily: Fonts.DroidSans }}>
+                {value ? data.find((item) => item.value === value)?.label : 'Category'}</Text>
+              <Image source={require('../assets/Images/down.png')} style={{ height: 24, width: 24 }} />
             </TouchableOpacity>
             {showPicker && <View style={styles.pickerContainer}>{renderPickerItems()}</View>}
-
             <Text style={styles.name}>Tasks</Text>
-
             <TextInput
               placeholder='Tasks'
               placeholderTextColor={'gray'}
@@ -95,29 +98,42 @@ const CreateList = () => {
               onPress={handleAddTask}
             >
               <View style={styles.button}>
-                <Text style={{ color: '#fff' }}>Add Task</Text>
+                <Text style={{ color: '#fff', fontFamily: Fonts.DroidSans }}>Add Task</Text>
               </View>
             </TouchableOpacity>
+            <View style={{ height: 280, }}>
+              <FlatList
+                data={tasks}
+                renderItem={({ item }) => (
+                  <View style={styles.taskItem}>
+                    <Text style={{ color: '#000', fontSize: 15, padding: 14, fontFamily: Fonts.DroidSans }}>
+                      {item}
+                    </Text>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
 
-            <FlatList
-              data={tasks}
-              renderItem={({ item }) => (
-                <View style={styles.taskItem}>
-                  <Text style={{ color: '#000', fontSize: 15, padding: 14, }}>
-                    {item}
-                  </Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            </View>
 
           </View>
           {tasks.length > 0 && (
-            <TouchableOpacity style={{ alignItems: 'center' }}>
-              <View style={[styles.button, { height: 32, width: 100 }]}>
-                <Text style={{ color: '#fff' }}>Submit</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between', paddingHorizontal: 40 }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Home')}
+                style={{ alignItems: 'center' }}>
+                <View style={[styles.button, { height: 32, width: 100 }]}>
+                  <Text style={{ color: '#fff', fontFamily: Fonts.DroidSans }}>Submit</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity 
+              onPress={() => navigation.navigate('AddFriends')}
+              style={{ alignItems: 'center' }}>
+                <View style={[styles.button, { height: 32, width: 100 }]}>
+                  <Text style={{ color: '#fff', fontFamily: Fonts.DroidSans }}>Add Friend</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           )}
         </KeyboardAvoidingView>
       </ScrollView>
@@ -207,24 +223,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     justifyContent: 'center',
-    height: 32,
+    height: 42,
     width: 200,
-    borderRadius: 16,
+    borderRadius: 26,
+    fontFamily: Fonts.DroidSans,
     backgroundColor: '#19C375'
   },
   input: {
     marginTop: 10,
     borderRadius: 8,
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     color: '#000',
     paddingHorizontal: 15,
+    flexDirection: 'row',
     height: 44,
+    fontFamily: Fonts.DroidSans,
     backgroundColor: '#F1EDED'
   },
   name: {
     color: '#000',
     marginTop: 10,
-    fontWeight: '500'
+    fontWeight: '500',
+    fontFamily: Fonts.DroidSans
   },
   dropdown: {
     height: 50,

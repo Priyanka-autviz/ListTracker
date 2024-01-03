@@ -5,6 +5,7 @@ import {
     View,
     TouchableOpacity,
 } from 'react-native';
+import { Fonts } from '../components/Fonts';
 
 export const Button = ({
     text,
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         color: '#fff',
+        fontFamily:Fonts.DroidSansBold
 
     },
 });

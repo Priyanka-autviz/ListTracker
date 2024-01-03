@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import Images from '../components/Images';
+import { Fonts } from '../components/Fonts';
 
 const Data = [
     {
@@ -17,7 +18,7 @@ const Data = [
     },
     {
         id: 2,
-        Text: '2023 New York Michelin Star Restaurants',
+        Text: '2023 Hit Movies',
         image: Images.res1,
         add: Images.plus
 
@@ -33,32 +34,32 @@ const Data = [
 const DATA = [
     {
         id: 1,
-        Text: 'New York Mission',
+        Text: 'New York Missions',
         image: Images.res,
     },
     {
         id: 2,
-        Text: 'Miami Mission',
+        Text: 'Miami Missions',
         image: Images.res5,
     },
     {
         id: 3,
-        Text: 'International Mission',
+        Text: 'International Missions',
         image: Images.res3,
     },
     {
         id: 4,
-        Text: 'Movie Mission',
+        Text: 'Movie Missions',
         image: Images.res4,
     },
     {
         id: 5,
-        Text: 'Book Mission',
+        Text: 'Book Missions',
         image: Images.res5,
     },
     {
         id: 6,
-        Text: 'New York Mission.',
+        Text: 'New York Missions.',
         image: Images.res3,
     }
 ]
@@ -67,32 +68,37 @@ const Dashboard = ({ navigation }) => {
 
         <View style={{ flex: 1 }}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Missions')}
+                onPress={() => navigation.navigate('User')}
                 style={styles.flatlist}>
                 <View style={styles.top} >
-                    <View style={{ flexDirection: 'row', }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Missions')}>
                         <Image source={item.image} style={styles.image} />
-                        <View>
-                            <Text style={styles.text}>{item.Text}</Text>
-                            <Text style={styles.lowerText}>{item.Text}</Text>
-                        </View>
+                    </TouchableOpacity>
+                    <View>
+                        <Text style={styles.text}>{item.Text}</Text>
+                        <Text style={styles.lowerText}>{item.Text}</Text>
                     </View>
-                    <Image source={item.add} style={{ height: 15, width: 15 }} />
+
+
                 </View>
+
+                <Image source={item.add} style={{ height: 15, width: 15 }} />
             </TouchableOpacity>
         </View>
     )
     const renderItem = ({ item }) => (
         <View style={{ flex: 1 }}>
             <View style={styles.Flatlist}>
-                <Image source={item.image} style={styles.img} />
+                <TouchableOpacity onPress={() => navigation.navigate('Missions')}>
+                    <Image source={item.image} style={styles.img} />
+                </TouchableOpacity>
                 <Text style={styles.Text}>{item.Text}</Text>
             </View>
         </View>
     )
     return (
         <>
-            <StatusBar backgroundColor={'#19C375'} barStyle={"dark-content"} />
+            <StatusBar backgroundColor={'#3CDA91'} barStyle={"dark-content"} />
 
             <KeyboardAvoidingView
                 style={{ flex: 1, backgroundColor: '#F5F5F5' }}
@@ -140,13 +146,22 @@ const Dashboard = ({ navigation }) => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
-    top: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, alignItems: 'center' },
-    Text: { color: 'black', paddingStart: 10, marginTop: 4, fontSize: 13 },
-    text: { color: 'black', fontWeight: '600', paddingStart: 8, fontSize: 11, paddingVertical: 3 },
-    lowerText: { color: 'black', paddingStart: 8, fontSize: 9, },
+    top: { flexDirection: 'row', width: '88%', alignItems: 'center' },
+    Text: { color: 'black', fontFamily: Fonts.DroidSans, paddingStart: 10, marginTop: 4, fontSize: 13 },
+    text: {
+        color: 'black', fontWeight: '600',
+
+        fontFamily: Fonts.DroidSansBold,
+        paddingStart: 8, fontSize: 11, paddingVertical: 3
+    },
+    lowerText: {
+        color: 'black',
+        fontFamily: Fonts.DroidSans,
+        paddingStart: 8, fontSize: 9,
+    },
     img: { height: 52, width: 137, borderRadius: 4 },
     header: {
-        backgroundColor: '#19C375',
+        backgroundColor: '#3CDA91',
         height: 110, width: '100%'
     },
     image: { height: 37, width: 38, borderRadius: 2 },
@@ -162,6 +177,7 @@ const styles = StyleSheet.create({
     },
     flatlist: {
         borderWidth: 1,
+        justifyContent: 'space-between',
         borderColor: '#fff',
         marginHorizontal: 15,
         marginTop: 10,
@@ -169,6 +185,9 @@ const styles = StyleSheet.create({
         // paddingHorizontal: 10,
         paddingVertical: 6,
         borderRadius: 4,
+        paddingHorizontal: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     Flatlist: {
         color: 'black',
@@ -190,13 +209,14 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: '#fff',
         paddingStart: 10,
+        fontFamily: Fonts.DroidSans
 
     },
     BrowseStyle: {
         textAlign: 'center',
         color: '#fff',
-        fontSize: 20,
-
+        fontSize: 24,
+        fontFamily: Fonts.DroidSansBold
     },
     createBtn: {
         alignItems: 'flex-end',
@@ -210,6 +230,7 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         marginTop: 25,
         borderRadius: 100,
+        fontFamily: Fonts.DroidSans,
         paddingVertical: 6,
     }
 });

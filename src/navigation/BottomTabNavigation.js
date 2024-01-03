@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/Dashboard';
@@ -11,6 +11,12 @@ import Leaderboard from '../screens/Leaderboard';
 import MyProgress from '../screens/MyProgress';
 import CreateList from '../screens/CreateList';
 import Missions from '../screens/Missions';
+import Friends from '../screens/Friends';
+import { ScrollView, useScrollToTop } from '@react-navigation/native';
+import FriendsList from '../screens/FriendsList';
+import SelectImage from '../screens/SelectImage';
+import AddFriends from '../screens/AddFriends';
+import ShowPhotos from '../screens/ShowPhotos';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,9 +25,13 @@ const UserStack = () => (
         headerShown: false,
         cardStyle: { backgroundColor: '#fff' },
     }}  >
-        <Stack.Screen name="User" component={User} />
+         <Stack.Screen name="Friends" component={Friends} />
+         <Stack.Screen name="FriendsList" component={FriendsList} />
+      
         <Stack.Screen name="MyProgress" component={MyProgress} />
         <Stack.Screen name="Leaderboard" component={Leaderboard} />
+       
+        <Stack.Screen name="SelectImage" component={SelectImage} />
     </Stack.Navigator>
 );
 const DashboardStack = () => (
@@ -31,22 +41,34 @@ const DashboardStack = () => (
     }} >
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Missions" component={Missions} />
-
+        <Stack.Screen name="User" component={User} />
+        <Stack.Screen name="ShowPhotos" component={ShowPhotos} />
         <Stack.Screen name="CreateList" component={CreateList} />
-
+       
+        <Stack.Screen name="AddFriends" component={AddFriends} />
+        <Stack.Screen name="SelectImage" component={SelectImage} />
+        <Stack.Screen name="MyProgress" component={MyProgress} />
+        <Stack.Screen name="Leaderboard" component={Leaderboard} />
+    
     </Stack.Navigator>
 )
 
 
 const BottomTabNavigation = () => {
+    const scrollRef = useRef(null);
+    const [hideTabBar, setHideTabBar] = useState(false);
+      useScrollToTop(scrollRef);
+
     return (
         <Tab.Navigator
- initialRouteName="Dashboard"
+            initialRouteName="Dashboard"
             activeColor="red"
             inactiveColor="white"
             screenOptions={{
+                tabBarVisible: !hideTabBar,
                 tabBarStyle: {
-                    backgroundColor: '#19C375',
+                
+                    backgroundColor: '#3CDA91',
                     paddingHorizontal: 20,
                     marginHorizontal: 20,
                     marginBottom: 20,
@@ -76,15 +98,15 @@ const BottomTabNavigation = () => {
                                 height: 37,
                                 width: 66,
                                 alignItems: 'center',
-
+                                justifyContent: 'center',
                             }}
                         >
-                            <Image source={Images.search} style={{ height: 25, width: 25, tintColor: focused ? '#000' : 'white' }} />
+                            <Image source={Images.home} style={{ height: 20, width: 20, tintColor: focused ? '#000' : 'white' }} />
                         </View>
                     ),
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="User"
                 component={UserStack}
                 options={{
@@ -95,20 +117,43 @@ const BottomTabNavigation = () => {
                             style={{
                                 backgroundColor: focused ? '#fff' : 'transparent',
                                 borderRadius: 50,
-
+                                justifyContent: 'center',
                                 height: 37,
                                 width: 66,
                                 alignItems: 'center',
 
                             }}
                         >
-                            <Image source={Images.user} style={{ height: 35, width: 35, tintColor: focused ? '#000' : 'white' }} />
+                            <Image source={Images.target} style={{ height: 20, width: 20, tintColor: focused ? '#000' : 'white' }} />
+                        </View>
+                    ),
+                }}
+            /> */}
+            <Tab.Screen
+                name="FriendsList"
+                component={UserStack}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <View
+                            style={{
+                                backgroundColor: focused ? '#fff' : 'transparent',
+                                borderRadius: 50,
+                                padding: 5,
+                                height: 37,
+                                width: 66,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+
+                            }}
+                        >
+                            <Image source={Images.frnds} style={{ height: 20, width: 20, tintColor: focused ? '#000' : 'white' }} />
                         </View>
                     ),
                 }}
             />
             <Tab.Screen
-                name="Home"
+                name="AddFriends"
                 component={Home}
                 options={{
                     headerShown: false,
@@ -121,15 +166,14 @@ const BottomTabNavigation = () => {
                                 height: 37,
                                 width: 66,
                                 alignItems: 'center',
-
+                                justifyContent: 'center'
                             }}
                         >
-                            <Image source={Images.check} style={{ height: 25, width: 25, tintColor: focused ? '#000' : 'white' }} />
+                            <Image source={Images.check} style={{ height: 24, width: 24, tintColor: focused ? '#000' : 'white' }} />
                         </View>
                     ),
                 }}
             />
-
         </Tab.Navigator>
     );
 }

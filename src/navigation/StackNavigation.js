@@ -16,6 +16,8 @@ import VerifyNumber from '../screens/VerifyNumber';
 import Onboarding from '../screens/Onboarding';
 import ConfirmPassword from '../screens/ConfirmPassword';
 import VerifyEmail from '../screens/VerifyEmail';
+import Friends from '../screens/Friends';
+import FriendsList from '../screens/FriendsList';
 
 const Stack = createStackNavigator();
 const StackNavigation = () => {
@@ -34,7 +36,9 @@ const StackNavigation = () => {
             <Stack.Screen name='Onboarding' component={Onboarding} />
             <Stack.Screen name='ConfirmPassword' component={ConfirmPassword} />
             <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
-
+            {/* <Stack.Screen name='Friends' component={Friends} />
+            <Stack.Screen name='FriendsList' component={FriendsList} />
+            <Stack.Screen name='User' component={User} /> */}
         </Stack.Navigator>
     )
 }

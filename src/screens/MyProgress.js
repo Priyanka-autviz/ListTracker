@@ -4,6 +4,7 @@ import { View, FlatList, Text as RNText, TouchableOpacity, StyleSheet, Image } f
 import Header from '../common/Header';
 import Images from '../components/Images';
 import { Svg, Ellipse, Text } from 'react-native-svg';
+import { Fonts } from '../components/Fonts';
 
 const OvalProgressBar = ({ progress }) => {
     const width = 35;
@@ -122,7 +123,7 @@ const MyProgress = ({ navigation }) => {
                 />
                 {
                     item.isChecked ? (
-                        <Image source={require('../assets/Images/upload.png')} style={{ marginLeft: 7 }} />
+                        <Image source={require('../assets/Images/upload1.png')} style={{ marginLeft: 7, }} />
 
                     ) : null
                 }
@@ -133,7 +134,9 @@ const MyProgress = ({ navigation }) => {
 
                 {
                     item.isChecked ? (
-                        <Image source={require('../assets/Images/upload.png')} style={{ marginRight: 7 }} />
+                        <TouchableOpacity onPress={()=>navigation.navigate('ShowPhotos')}>
+                        <Image source={require('../assets/Images/upload1.png')} style={{ marginRight: 7 }} />
+                        </TouchableOpacity>
 
                     ) : null
                 }
@@ -159,11 +162,11 @@ const MyProgress = ({ navigation }) => {
                 <View style={styles.container}>
                     <View style={{ flexDirection: 'row', paddingBottom: 10, paddingHorizontal: 5, justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <RNText style={{ color: '#000', fontWeight: 'bold', marginRight: 20, }}>#</RNText>
+                            <RNText style={{ color: '#000', fontWeight: 'bold', fontFamily:Fonts.DroidSans, marginRight: 20, }}>#</RNText>
                             <OvalProgressBar progress={0.5} />
                         </View>
 
-                        <RNText style={{ color: '#000', fontWeight: 'bold' }}> Task</RNText>
+                        <RNText style={{ color: '#000', fontWeight: 'bold', fontFamily:Fonts.DroidSans }}> Task</RNText>
                         <View style={{}}>
                             <OvalProgressBar progress={0.7} />
                         </View>
@@ -204,8 +207,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-
-
     },
     checkbox: {
         height: 22,
@@ -222,6 +223,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         color: '#000',
+        fontFamily:Fonts.DroidSans
     },
     checkboxUnchecked: {
         height: 24,

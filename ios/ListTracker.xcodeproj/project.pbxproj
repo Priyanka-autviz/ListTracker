@@ -14,6 +14,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-ListTracker-ListTrackerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ListTracker-ListTrackerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		31301375312643B5AC691115 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8DD9F63EFB34D3B9372EC97 /* DroidSans-Bold.ttf */; };
+		706ABDFDAACC4CA59837A5DC /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBD09752DC764FB4993F894D /* DroidSans.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ListTracker/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ListTracker-ListTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListTracker-ListTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-ListTracker-ListTrackerTests/Pods-ListTracker-ListTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		C8DD9F63EFB34D3B9372EC97 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; name = "DroidSans-Bold.ttf"; path = "../assets/fonts/DroidSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CBD09752DC764FB4993F894D /* DroidSans.ttf */ = {isa = PBXFileReference; name = "DroidSans.ttf"; path = "../assets/fonts/DroidSans.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9B5FB406DEA64EB3AAA84BBB /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +152,16 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		9B5FB406DEA64EB3AAA84BBB /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				C8DD9F63EFB34D3B9372EC97 /* DroidSans-Bold.ttf */,
+				CBD09752DC764FB4993F894D /* DroidSans.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -243,6 +258,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				31301375312643B5AC691115 /* DroidSans-Bold.ttf in Resources */,
+				706ABDFDAACC4CA59837A5DC /* DroidSans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

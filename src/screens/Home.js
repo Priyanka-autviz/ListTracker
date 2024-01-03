@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text as RNText } from 'react-native';
-import { Svg, Ellipse, Text } from 'react-native-svg';
+import { View, FlatList, StyleSheet, Text as RNText, TouchableOpacity } from 'react-native';
+import { Svg, Circle, Text } from 'react-native-svg';
 import Header from '../common/Header';
 import Images from '../components/Images';
+import { Fonts } from '../components/Fonts';
+import { useNavigation } from '@react-navigation/native';
+
 
 const data = [
   {
@@ -63,74 +66,79 @@ const data = [
   },
 ];
 
-const OvalProgressBar = ({ progress }) => {
-  const width = 40;
-  const height = 45;
-  const strokeWidth = 5;
-  const centerX = width / 2;
-  const centerY = height / 2;
 
-  const horizontalRadius = (width - strokeWidth) / 2;
-  const verticalRadius = (height - strokeWidth) / 2;
 
-  const fullCircumference = 2 * Math.PI * Math.sqrt((horizontalRadius * horizontalRadius + verticalRadius * verticalRadius) / 2);
-  const progressValue = fullCircumference * (1 - progress);
-  const percentage = Math.round(progress * 100);
-  return (
-    <Svg height={height} width={width}>
-
-      <Ellipse
-        cx={centerX}
-        cy={centerY}
-        rx={horizontalRadius}
-        ry={verticalRadius}
-        fill="transparent"
-        stroke="#D9D9D9"
-        strokeWidth={strokeWidth}
-      />
-
-      <Ellipse
-        cx={centerX}
-        cy={centerY}
-        rx={horizontalRadius}
-        ry={verticalRadius}
-        fill="transparent"
-        stroke="#DA423C"
-        strokeWidth={strokeWidth}
-        strokeDasharray={`${progressValue},${fullCircumference}`}
-        strokeLinecap="butt"
-      />
-
-      <Text
-        style={styles.text}
-        x={centerX}
-        y={centerY}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="#DA423C"
-        fontSize="10"
-
-      >
-        {`${percentage}%`}
-      </Text>
-    </Svg>
-  );
-};
-
-const OvalProgressBarItem = ({ item }) => {
-  return (
-    <View style={styles.flatlist}>
-      <OvalProgressBar progress={item.progress} />
-      <View style={{ paddingStart: 20 }}>
-        <RNText style={styles.text}>{item.text}</RNText>
-        <RNText style={styles.btmtext}>{item.btmtext}</RNText>
-      </View>
-
-    </View>
-  );
-};
 
 const Home = () => {
+  const navigation = useNavigation();
+
+  const OvalProgressBar = ({ progress }) => {
+    const diameter = 40;
+    const strokeWidth = 5;
+    const radius = (diameter - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const progressValue = circumference * (1 - progress);
+    const percentage = Math.round(progress * 100);
+
+    const textX = diameter / 2;
+    const textY = diameter / 2;
+
+    return (
+      <Svg height={diameter} width={diameter}>
+
+        <Circle
+          cx={diameter / 2}
+          cy={diameter / 2}
+          r={radius}
+          fill="transparent"
+          stroke="#D9D9D9"
+          strokeWidth={strokeWidth}
+        />
+
+
+        <Circle
+          cx={diameter / 2}
+          cy={diameter / 2}
+          r={radius}
+          fill="transparent"
+          stroke="#DA423C"
+          strokeWidth={strokeWidth}
+          strokeDasharray={`${circumference} ${circumference}`}
+          strokeDashoffset={progressValue}
+          strokeLinecap="round"
+          transform={`rotate(-90 ${diameter / 2} ${diameter / 2})`}
+        />
+
+        <Text
+          x={diameter / 2}
+          y={diameter / 2}
+          textAnchor="middle"
+          alignmentBaseline="middle"
+          fill="#DA423C"
+          fontSize="10"
+        >
+          {`${percentage}%`}
+        </Text>
+      </Svg>
+    );
+  };
+
+  const OvalProgressBarItem = ({ item }) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('User')}
+        style={styles.flatlist}>
+        <OvalProgressBar progress={item.progress} />
+        <View style={{ paddingStart: 20 }}>
+          <RNText style={styles.text}>{item.text}</RNText>
+          <RNText style={styles.btmtext}>{item.btmtext}</RNText>
+        </View>
+
+      </TouchableOpacity>
+    );
+  };
+
+
   const renderItem = ({ item }) => (
     <View style={{ flex: 1 }}>
       <OvalProgressBarItem item={item} />
@@ -144,15 +152,17 @@ const Home = () => {
       <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
 
         <Header
-          showTextInput
+          showSearch
           Header={'My Missions'}
           back={Images.back}
-          showProgress
-          LowerText={'9 friends are participating in this mission'}
 
-          img={Images.settings}
+          info={Images.logout}
+          LowerText={'9 friends are participating in this mission'}
+          infoOnpress={() => navigation.navigate('Login')}
+
+          img={Images.logout}
         />
-        <View style={{ flex: 1, marginTop: 60, }}>
+        <View style={{ flex: 1, marginTop: 30, }}>
           <FlatList
             data={data}
             renderItem={renderItem}
@@ -187,11 +197,14 @@ const styles = StyleSheet.create({
   text: {
     color: '#000',
     fontSize: 13,
+    fontFamily: Fonts.DroidSans
   },
   btmtext: {
     color: '#000',
     fontSize: 11,
+    fontFamily: Fonts.DroidSans
   }
 });
 
 export default Home;
+

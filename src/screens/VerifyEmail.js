@@ -8,6 +8,8 @@ import {
 } from 'react-native-confirmation-code-field';
 import Images from '../components/Images';
 import { Button } from '../common/Button';
+import { Fonts } from '../components/Fonts';
+import AuthHeader from '../common/AuthHeader';
 
 
 const CELL_COUNT = 6;
@@ -23,17 +25,10 @@ const VerifyEmail = ({ navigation }) => {
 
     return (
         <>
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1,backgroundColor:'#F5F5F5' }}>
                 <View style={styles.header}>
                     <View style={{ flex: 1 }}>
-                    <TouchableOpacity onPress={()=>navigation.goBack()}>
-                            <Image source= {require('../assets/Images/back.png')}
-                            style={{ height: 28, width: 28,  tintColor: '#3CDA91' }} />
-                               </TouchableOpacity>
-                    <View style={styles.imgview}>
-            <Image source={Images.web}
-              style={{ height: 140, width: 140, tintColor: '#3CDA91' }} />
-          </View>
+                      <AuthHeader />
                         <Text style={styles.number}>Verify your Email </Text>
                         <Text style={styles.text}> Please enter the verification code sent to email</Text>
 
@@ -90,7 +85,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 15,
         marginVertical: 30,
-        fontFamily: 'Poppins-Regular'
+        fontFamily: Fonts.DroidSans
     },
     root: {
         flex: 1,
@@ -98,7 +93,7 @@ const styles = StyleSheet.create({
     },
     imgview: {
         justifyContent: 'center', alignItems: 'center', marginTop: 90,
-      },
+    },
     num: {
 
         marginTop: 3,
@@ -117,7 +112,7 @@ const styles = StyleSheet.create({
     text: {
         color: 'gray',
         fontSize: 14,
-
+        fontFamily: Fonts.DroidSans
 
     },
     verifybtn: {
@@ -128,8 +123,8 @@ const styles = StyleSheet.create({
     number: {
         marginTop: 29,
         fontSize: 26,
-        color: '#3CDA91'
-
+        color: '#3CDA91',
+        fontFamily: Fonts.DroidSansBold
     },
     title: {
         textAlign: 'center',

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
+import { Fonts } from '../components/Fonts'
 
 const InputText = ({
     placeholder,
@@ -7,17 +8,19 @@ const InputText = ({
     secureTextEntry,
     inputstying,
     onChangeText,
+    inputText,
     keyboardType,
     value,
     onChange,
     editable,
-    defaultValue
+    defaultValue,
+    textAlignVertical
 }) => {
     return (
         <View
             style={[styles.input, inputstying]}>
             <TextInput
-                style={styles.view}
+                style={[styles.view, inputText]}
                 placeholder={placeholder}
                 placeholderTextColor={placeholderTextColor}
                 secureTextEntry={secureTextEntry}
@@ -28,6 +31,7 @@ const InputText = ({
                 onChange={onChange}
                 editable={editable}
                 defaultValue={defaultValue}
+                textAlignVertical={textAlignVertical}
             />
         </View>
     )
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
     view: {
         flex: 1, fontSize: 16,
         color: 'gray',
+        fontFamily:Fonts.DroidSans
 
     }
 })

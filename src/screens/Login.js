@@ -2,6 +2,8 @@ import { SafeAreaView, StyleSheet, Dimensions, Text, View, KeyboardAvoidingView,
 import React from 'react'
 import InputText from '../common/InputText';
 import { Button } from '../common/Button';
+import { Fonts } from '../components/Fonts';
+import AuthHeader from '../common/AuthHeader';
 
 const Login = ({ navigation }) => {
 
@@ -11,7 +13,7 @@ const Login = ({ navigation }) => {
                 <ScrollView style={{ flex: 1 }}>
 
                     <View style={styles.containter}>
-                        <View style={{ flex: 1, marginTop: 20 }}>
+                        {/* <View style={{ flex: 1, marginTop: 20 }}>
                         <TouchableOpacity onPress={()=>navigation.goBack()}>
                             <Image source= {require('../assets/Images/back.png')}
                             style={{ height: 28, width: 28,  tintColor: '#3CDA91' }} />
@@ -19,15 +21,15 @@ const Login = ({ navigation }) => {
                             <Image source=
                                 {require('../assets/Images/web.png')}
                                 style={styles.img} />
-                        </View>
-
-                        <View style={{ flex: 0.4, }}>
+                        </View> */}
+                        <AuthHeader />
+                        <View style={{}}>
                             <Text style={styles.text}>User Login </Text>
                             {/* <Text style={styles.txt}> Enter your Email and Password for Login up </Text> */}
                         </View>
                         <View style={{}}>
                             <InputText
-                                placeholder={"Email Address"}
+                                placeholder={"Email Address/ Mobile Number"}
                                 placeholderTextColor={'gray'}
                             />
                             <InputText
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         color: '#3CDA91',
         fontSize: 29,
+        fontFamily: Fonts.DroidSansBold
     },
     img: {
         alignSelf: "center",
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
         color: '#0C0C0C',
         fontSize: 15,
         marginTop: 22,
+        fontFamily: Fonts.DroidSans,
         textAlign: 'center',
     },
     newTxt: {

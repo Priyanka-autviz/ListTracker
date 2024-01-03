@@ -163,9 +163,10 @@ const OvalProgressBarItem = ({ item }) => {
         <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
             <Header
                 back={Images.back}
+                isCenterShown
                 centerText={'Leaderboard'}
                 Header={'Travel the World'}
-                LowerText={'9 friends are participating in this mission'}
+                LowerText={'9 friends are participating in this missions'}
             />
             <View style={{ flex: 1, marginTop: 30, }}>
 
